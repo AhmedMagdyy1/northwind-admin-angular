@@ -1,59 +1,61 @@
-# NorthwindAdmin
+# Northwind Ops: Angular Admin Dashboard
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 22.2.5.
+A production-style admin dashboard built with **Angular 22**, **Angular Material 3**, and **Chart.js**. It shows the patterns I use on real client projects: role-based auth, data tables with server-style filtering, charts, a responsive layout, dark mode, and unit tests.
 
-## Development server
+**Live demo:** _coming soon_ · sign in with `admin@northwind.dev` / `demo1234` (or `viewer@northwind.dev` to see the read-only role)
 
-To start a local development server, run:
+![Dashboard, light mode](docs/screenshots/dashboard-light.jpg)
 
-```bash
-ng serve
+## Features
+
+- **Auth & roles**: login form with validation, session persistence, `authGuard` with return URL, and a `roleGuard` that keeps viewers out of admin pages
+- **Dashboard**: KPI cards with period-over-period change, 12-month revenue line chart, orders-by-status doughnut, recent orders
+- **Orders table**: search, status filter, date-range picker, sorting, pagination, CSV export, deep links (`/orders?status=pending`), and admin-only status changes
+- **Customers table**: search plus plan filter, sortable columns
+- **Dark mode**: one toggle, saved per browser, no flash on reload; charts restyle from Material 3 tokens
+- **Responsive**: side navigation on desktop, slide-over menu on phones and tablets
+- **Accessible**: labelled controls, keyboard-friendly Material components, ARIA labels on charts and icon buttons
+
+| Orders | Dark mode | Sign in |
+|---|---|---|
+| ![Orders](docs/screenshots/orders.jpg) | ![Dark mode](docs/screenshots/dashboard-dark.jpg) | ![Sign in](docs/screenshots/login.jpg) |
+
+## Tech
+
+| | |
+|---|---|
+| Framework | Angular 22 (standalone components, signals, zoneless change detection, lazy-loaded routes) |
+| UI | Angular Material 3 + CDK |
+| Charts | Chart.js 4 (tree-shaken, only the controllers in use are registered) |
+| State | Angular signals; RxJS for async data flows (`debounceTime` → `switchMap`) |
+| Tests | Vitest via `ng test` |
+| Deploy | Vercel (SPA rewrites in `vercel.json`) |
+
+## Project structure
+
+```
+src/app/
+├── core/            # models, data service (mock API), auth service + guards, theme service
+├── layout/shell.ts  # sidenav + toolbar, responsive breakpoints
+├── shared/chart.ts  # Chart.js wrapper that re-renders on theme change
+└── features/        # login, dashboard, orders, customers, team (lazy-loaded)
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+`DataService` is the only place that knows the data is mocked. Its methods return Observables with simulated latency, so connecting a real REST API means changing that one file to use `HttpClient`.
 
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## Run it locally
 
 ```bash
-ng generate component component-name
+npm install
+npm start          # http://localhost:4200
+npm test           # unit tests (22 specs)
+npm run build      # production build in dist/
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## Tests
 
-```bash
-ng generate --help
-```
+Unit tests cover the order filter logic (status, search, date range), the deterministic mock data generator, `DataService` updates and aggregations, `AuthService` sign in/out, both route guards, and the chart color helper.
 
-## Building
+---
 
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Built by **Ahmed Magdy**, a senior Angular developer who works on Angular upgrades, AngularJS migrations, and enterprise dashboards. [GitHub](https://github.com/AhmedMagdyy1)

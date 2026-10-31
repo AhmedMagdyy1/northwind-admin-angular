@@ -1,1 +1,123 @@
-/* You can add global styles to this file, and also import other style files */
+@use '@angular/material' as mat;
+
+html {
+  color-scheme: light;
+  @include mat.theme(
+    (
+      color: (
+        primary: mat.$azure-palette,
+        tertiary: mat.$violet-palette,
+      ),
+      typography: Roboto,
+      density: 0,
+    )
+  );
+
+  &.dark {
+    color-scheme: dark;
+  }
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
+  background: var(--mat-sys-surface-container-low);
+  color: var(--mat-sys-on-surface);
+}
+
+/* Shared page chrome */
+.page {
+  padding: 24px;
+  max-width: 1400px;
+  margin: 0 auto;
+  box-sizing: border-box;
+
+  @media (max-width: 600px) {
+    padding: 16px;
+  }
+}
+
+.page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+
+  h1 {
+    font: var(--mat-sys-headline-small);
+    margin: 0;
+  }
+
+  p {
+    margin: 4px 0 0;
+    color: var(--mat-sys-on-surface-variant);
+    font: var(--mat-sys-body-medium);
+  }
+}
+
+.card {
+  background: var(--mat-sys-surface);
+  border: 1px solid var(--mat-sys-outline-variant);
+  border-radius: 16px;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.status-chip {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 999px;
+  font: var(--mat-sys-label-medium);
+  text-transform: capitalize;
+
+  &.pending {
+    background: #fff4d6;
+    color: #7a5200;
+  }
+  &.paid {
+    background: #dcefff;
+    color: #0b4a8b;
+  }
+  &.shipped {
+    background: #dbf5e4;
+    color: #146c2e;
+  }
+  &.refunded {
+    background: #fde2e1;
+    color: #9b1c1c;
+  }
+}
+
+html.dark .status-chip {
+  &.pending {
+    background: #4a3a10;
+    color: #ffd98a;
+  }
+  &.paid {
+    background: #11365c;
+    color: #a9d4ff;
+  }
+  &.shipped {
+    background: #143d24;
+    color: #9be3b3;
+  }
+  &.refunded {
+    background: #4d1c1c;
+    color: #ffb4ab;
+  }
+}
+
+.table-wrap {
+  overflow-x: auto;
+}
+
+.muted {
+  color: var(--mat-sys-on-surface-variant);
+}
