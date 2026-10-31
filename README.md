@@ -2,7 +2,7 @@
 
 A production-style admin dashboard built with **Angular 22**, **Angular Material 3**, and **Chart.js**. It shows the patterns I use on real client projects: role-based auth, data tables with server-style filtering, charts, a responsive layout, dark mode, and unit tests.
 
-**Live demo:** _coming soon_ · sign in with `admin@northwind.dev` / `demo1234` (or `viewer@northwind.dev` to see the read-only role)
+**Live demo:** https://northwind-admin-angular.vercel.app · sign in with `admin@northwind.dev` / `demo1234` (or `viewer@northwind.dev` to see the read-only role)
 
 ![Dashboard, light mode](docs/screenshots/dashboard-light.jpg)
 
